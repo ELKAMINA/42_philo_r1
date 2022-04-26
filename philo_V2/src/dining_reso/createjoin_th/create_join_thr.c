@@ -6,7 +6,7 @@
 /*   By: aminaelk <aminaelk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 15:48:02 by ael-khat          #+#    #+#             */
-/*   Updated: 2022/04/24 11:15:23 by ael-khat         ###   ########.fr       */
+/*   Updated: 2022/04/26 14:44:33 by ael-khat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	manage_failure(t_philo *philo, int n)
 
 void	creating_threads(t_philo *copy, t_glob_info *infos)
 {
-	if	(create_th(copy, infos) == 1)
+	if (create_th(copy, infos) == 1)
 		return ;
 	join_th(copy, infos);
 }
@@ -49,7 +49,6 @@ int	create_th(t_philo *copy, t_glob_info *infos)
 	pthread_mutex_unlock(&copy->glob_infos->timest);
 	while (i < infos->nb_philos)
 	{
-
 		if (pthread_create(&copy->th, NULL, (void *)func_living, copy) != 0)
 		{
 			manage_failure(fail, i);

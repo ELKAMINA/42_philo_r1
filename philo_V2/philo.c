@@ -6,11 +6,37 @@
 /*   By: ael-khat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 12:15:29 by ael-khat          #+#    #+#             */
-/*   Updated: 2022/04/15 11:25:24 by ael-khat         ###   ########.fr       */
+/*   Updated: 2022/04/26 19:10:53 by ael-khat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	odd_philo(t_philo *philosopher)
+{
+	t_philo	*philo;
+
+	philo = philosopher;
+	philo->first = &philo->p_fork;
+	philo->second = &philo->next->p_fork;
+	philo->b_forkfi = &philo->b_fork;
+	philo->b_forksec = &philo->next->b_fork;
+	philo->b_myforkfi = &philo->b_myfork;
+	philo->b_myforksec = &philo->next->b_myfork;
+}
+
+void	even_philo(t_philo *philosopher)
+{
+	t_philo	*philo;
+
+	philo = philosopher;
+	philo->first = &philo->next->p_fork;
+	philo->second = &philo->p_fork;
+	philo->b_forksec = &philo->b_fork;
+	philo->b_forkfi = &philo->next->b_fork;
+	philo->b_myforksec = &philo->b_myfork;
+	philo->b_myforkfi = &philo->next->b_myfork;
+}
 
 void	settle_forks(t_philo **philo_head, t_glob_info *global_info)
 {
@@ -22,15 +48,9 @@ void	settle_forks(t_philo **philo_head, t_glob_info *global_info)
 	while (i < global_info->nb_philos)
 	{
 		if (philo->id % 2 != 0)
-		{
-			philo->first = &philo->p_fork;
-			philo->second = &philo->next->p_fork;
-		}
+			odd_philo(philo);
 		else
-		{
-			philo->first = &philo->next->p_fork;
-			philo->second = &philo->p_fork;
-		}
+			even_philo(philo);
 		philo = philo->next;
 		i++;
 	}

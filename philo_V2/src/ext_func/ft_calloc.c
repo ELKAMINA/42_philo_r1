@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aminaelk <aminaelk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ael-khat <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/13 16:06:46 by ael-khat          #+#    #+#             */
-/*   Updated: 2022/04/19 17:03:59 by aminaelk         ###   ########.fr       */
+/*   Created: 2022/04/26 19:14:06 by ael-khat          #+#    #+#             */
+/*   Updated: 2022/04/26 19:14:08 by ael-khat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../philo.h"
 
-t_philo	*ft_lstnew(t_glob_info *infos)
+void	*ft_calloc(size_t count, size_t size)
 {
-	t_philo	*new;
+	void	*ptr;
 
-	new = ft_calloc(1, (sizeof(t_philo)));
-	new->id = 1;
-	new->last_meal = convert_toms();
-	new->glob_infos = infos;
-	pthread_mutex_init(&new->p_fork, NULL);
-	return (new);
+	ptr = (void *)malloc(count * size);
+	if (ptr == NULL)
+		return (NULL);
+	ft_bzero(ptr, count * size);
+	return (ptr);
 }

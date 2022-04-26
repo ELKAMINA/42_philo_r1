@@ -6,7 +6,7 @@
 /*   By: aminaelk <aminaelk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 14:17:59 by ael-khat          #+#    #+#             */
-/*   Updated: 2022/04/19 17:34:54 by aminaelk         ###   ########.fr       */
+/*   Updated: 2022/04/26 19:19:24 by ael-khat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,15 @@ typedef struct s_philo
 	pthread_mutex_t	p_fork;
 	pthread_mutex_t	*first;
 	pthread_mutex_t	*second;
+	pthread_mutex_t	b_myfork;
+	pthread_mutex_t	*b_myforkfi;
+	pthread_mutex_t	*b_myforksec;
 	int				meals_eaten;
+	int				b_fork;
+	int				*b_forkfi;
+	int				*b_forksec;
 	time_t			last_meal;
-	time_t			got_fork;
-	time_t			start_eating;
-	time_t			finish_eating;
-	time_t			is_sleeping;
-	time_t			is_thinking;
-	time_t			died;
 	pthread_t		th;
-	pthread_t		check;
 	struct s_philo	*previous;
 	struct s_philo	*next;
 	t_glob_info		*glob_infos;
@@ -106,10 +105,15 @@ void		join_th(t_philo *copy, t_glob_info *infos);
 void		message_tosend(char *str, time_t *timestamp, t_philo *philo);
 void		dying_philo(t_philo *philo);
 int			check_dead(t_philo *philo, time_t last_meal, time_t time_to_die);
-void 		creating_threads(t_philo *copy, t_glob_info *infos);
+void		creating_threads(t_philo *copy, t_glob_info *infos);
 char		check_errors(t_glob_info *infos);
 time_t		countdown_death(time_t time);
 void		think_sleep(t_philo *copy);
 void		timing(t_philo *copy);
+void		*ft_calloc(size_t count, size_t size);
+void		ft_bzero(void *s, size_t n);
+int			take_fork(t_philo *c, pthread_mutex_t *f, int *b,
+				pthread_mutex_t *bm);
+int			drop_fork(pthread_mutex_t *f, int *b, pthread_mutex_t *b_m);
 
 #endif

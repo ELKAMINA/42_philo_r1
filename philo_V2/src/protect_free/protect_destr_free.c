@@ -57,9 +57,11 @@ void	destroy_mutexes(t_philo *philo)
 	i = 0;
 	pthread_mutex_destroy(&philo->glob_infos->is_alive);
 	pthread_mutex_destroy(&philo->glob_infos->msg);
+	pthread_mutex_destroy(&philo->glob_infos->timest);
 	while (i < philo->glob_infos->nb_philos)
 	{
 		pthread_mutex_destroy(&philo->p_fork);
+		pthread_mutex_destroy(&philo->b_myfork);
 		i++;
 		philo = philo->next;
 	}

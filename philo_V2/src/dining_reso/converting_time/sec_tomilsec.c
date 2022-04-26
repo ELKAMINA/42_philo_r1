@@ -6,7 +6,7 @@
 /*   By: aminaelk <aminaelk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 14:25:46 by ael-khat          #+#    #+#             */
-/*   Updated: 2022/04/24 11:13:49 by ael-khat         ###   ########.fr       */
+/*   Updated: 2022/04/26 14:44:00 by ael-khat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ int	my_usleep(t_philo *copy, time_t t, int fork_use)
 				pthread_mutex_unlock(copy->second);
 				pthread_mutex_unlock(copy->first);
 			}
-			return (1) ;
+			return (1);
 		}
 		if (convert_toms() - start >= t)
-			return (0) ;
+			return (0);
 		usleep(400);
 	}
 	return (0);

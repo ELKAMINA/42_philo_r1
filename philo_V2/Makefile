@@ -11,8 +11,11 @@ SRC = philo.c\
 		./src/ext_func/ft_lstnew.c\
 		./src/ext_func/ft_lstlast.c \
 		./src/ext_func/ft_lstclear.c \
+		./src/ext_func/ft_calloc.c \
+		./src/ext_func/ft_bzero.c \
 		./src/dining_reso/dining_philos.c \
 		./src/dining_reso/living/living.c \
+		./src/dining_reso/living/living2.c \
 		./src/dining_reso/createjoin_th/create_join_thr.c \
 		./src/dining_reso/converting_time/sec_tomilsec.c \
 

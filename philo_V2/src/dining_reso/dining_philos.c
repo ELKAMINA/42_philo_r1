@@ -28,9 +28,10 @@ void	message_tosend(char *str, time_t *timestamp, t_philo *philo)
 
 void	dying_philo(t_philo *philo)
 {
+	timing(philo);
 	pthread_mutex_lock(&philo->glob_infos->msg);
 	pthread_mutex_lock(&philo->glob_infos->timest);
-	printf("%ld %d died\n", philo->glob_infos->time_to_die, philo->id);
+	printf("%ld %d died\n", philo->glob_infos->timestamp, philo->id);
 	pthread_mutex_unlock(&philo->glob_infos->timest);
 	pthread_mutex_unlock(&philo->glob_infos->msg);
 	return ;
