@@ -12,21 +12,8 @@
 
 #include "../../../philo.h"
 
-void	lock_mutexes(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->glob_infos->is_alive);
-	pthread_mutex_lock(&philo->glob_infos->timest);
-}
-
-void	unlock_mutexes(t_philo *philo)
-{
-	pthread_mutex_unlock(&philo->glob_infos->timest);
-	pthread_mutex_unlock(&philo->glob_infos->is_alive);
-}
-
 void	manage_failure(t_philo *philo, int n)
 {
-	//lock_mutexes(philo);
 	int	i;
 
 	i = 0;
@@ -35,22 +22,21 @@ void	manage_failure(t_philo *philo, int n)
 	pthread_mutex_unlock(&philo->glob_infos->is_alive);
 	while (i < n && philo->id <= n)
 	{
-		printf("n = %d -- philo %d -- philo next %d\n", n, philo->id, philo->next->id);
 		if (pthread_join(philo->th, NULL) != 0)
 			return ;
 		philo = philo->next;
 		i++;
 	}
-	//unlock_mutexes(philo);
 }
 
 void	creating_threads(t_philo *copy, t_glob_info *infos)
 {
-	create_th(copy, infos);
+	if	(create_th(copy, infos) == 1)
+		return ;
 	join_th(copy, infos);
 }
 
-void	create_th(t_philo *copy, t_glob_info *infos)
+int	create_th(t_philo *copy, t_glob_info *infos)
 {
 	long		i;
 	t_philo		*fail;
@@ -67,11 +53,12 @@ void	create_th(t_philo *copy, t_glob_info *infos)
 		if (pthread_create(&copy->th, NULL, (void *)func_living, copy) != 0)
 		{
 			manage_failure(fail, i);
-			return ;
+			return (1);
 		}
 		copy = copy->next;
 		i ++;
 	}
+	return (0);
 }
 
 void	join_th(t_philo *copy, t_glob_info *infos)
